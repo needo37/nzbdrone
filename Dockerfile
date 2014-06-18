@@ -9,8 +9,9 @@ RUN apt-get -q update
 RUN apt-get install -qy nzbdrone
 
 VOLUME /config
-VOLUME /data
+VOLUME /downloads
+VOLUME /tv
 
 EXPOSE 8989
 
-ENTRYPOINT ["mono", "/usr/bin/nzbdrone"]
+ENTRYPOINT ["mono", "/opt/NzbDrone/NzbDrone.exe"]
