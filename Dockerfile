@@ -7,6 +7,7 @@ RUN ln -sf /usr/share/zoneinfo/CST6CDT /etc/localtime
 
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody
+RUN usermod -g 100 nobody
 
 # Mono 3.2 is in Debian/Experimental
 RUN echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list
