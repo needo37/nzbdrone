@@ -2,6 +2,9 @@ FROM debian:jessie
 MAINTAINER needo <needo@superhero.org>
 ENV DEBIAN_FRONTEND noninteractive
 
+# Fix timezone
+RUN ln -sf /usr/share/zoneinfo/CST6CDT /etc/localtime
+
 # Mono 3.2 is in Debian/Experimental
 RUN echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list
 
