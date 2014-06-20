@@ -5,6 +5,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # Fix timezone
 RUN ln -sf /usr/share/zoneinfo/CST6CDT /etc/localtime
 
+# Fix a Debianism of the nobody's uid being 65534
+RUN usermod -u 99 nobody
+
 # Mono 3.2 is in Debian/Experimental
 RUN echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list
 
@@ -22,4 +25,6 @@ VOLUME /tv
 
 EXPOSE 8989
 
+# Do not run daemons as root
+USER nobody
 ENTRYPOINT ["mono", "/opt/NzbDrone/NzbDrone.exe", "-nobrowswer", "-data=/config"]
