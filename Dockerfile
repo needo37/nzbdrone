@@ -14,7 +14,7 @@ RUN usermod -g 100 nobody
 
 # Configure nzbdrone's apt repository
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
-RUN echo "deb http://update.nzbdrone.com/repos/apt/debian master main" >> /etc/apt/sources.list
+RUN echo "deb http://apt.sonarr.tv/ master main" >> /etc/apt/sources.list
 
 RUN apt-get update -q
 RUN apt-get install -qy libmono-cil-dev nzbdrone
