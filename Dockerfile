@@ -18,6 +18,7 @@ RUN echo "deb http://apt.sonarr.tv/ master main" >> /etc/apt/sources.list
 
 RUN apt-get update -q
 RUN apt-get install -qy libmono-cil-dev nzbdrone
+RUN chown -R nobody:users /opt/NzbDrone
 
 VOLUME /config
 VOLUME /downloads
