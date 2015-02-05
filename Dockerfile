@@ -17,7 +17,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
 RUN echo "deb http://apt.sonarr.tv/ master main" >> /etc/apt/sources.list
 
 RUN apt-get update -q
-RUN apt-get install -qy libmono-cil-dev nzbdrone
+RUN apt-get install -qy libgdiplus libmono-cil-dev nzbdrone
 RUN chown -R nobody:users /opt/NzbDrone
 
 VOLUME /config
