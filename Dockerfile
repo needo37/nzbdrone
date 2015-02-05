@@ -1,32 +1,39 @@
-FROM phusion/baseimage:0.9.11
+FROM phusion/baseimage:0.9.15
 MAINTAINER needo <needo@superhero.org>
-ENV DEBIAN_FRONTEND noninteractive
+
+#########################################
+##        ENVIRONMENTAL CONFIG         ##
+#########################################
 
 # Set correct environment variables
-ENV HOME /root
+ENV DEBIAN_FRONTEND noninteractive
+ENV HOME            /root
+ENV LC_ALL          C.UTF-8
+ENV LANG            en_US.UTF-8
+ENV LANGUAGE        en_US.UTF-8
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
-# Fix a Debianism of the nobody's uid being 65534
-RUN usermod -u 99 nobody
-RUN usermod -g 100 nobody
+#########################################
+##  FILES, SERVICES AND CONFIGURATION  ##
+#########################################
 
-# Configure nzbdrone's apt repository
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC
-RUN echo "deb http://apt.sonarr.tv/ master main" >> /etc/apt/sources.list
+# Add services to runit
+ADD nzbdrone.sh /etc/service/nzbdrone/run
 
-RUN apt-get update -q
-RUN apt-get install -qy libgdiplus libmono-cil-dev nzbdrone
-RUN chown -R nobody:users /opt/NzbDrone
+RUN chmod +x /etc/service/*/run /etc/my_init.d/*
 
-VOLUME /config
-VOLUME /downloads
-VOLUME /tv
+#########################################
+##         EXPORTS AND VOLUMES         ##
+#########################################
 
+VOLUME /config /downloads /tv
 EXPOSE 8989
 
-# Add nzbdrone to runit
-RUN mkdir /etc/service/nzbdrone
-ADD nzbdrone.sh /etc/service/nzbdrone/run
-RUN chmod +x /etc/service/nzbdrone/run
+#########################################
+##         RUN INSTALL SCRIPT          ##
+#########################################
+
+ADD install.sh /tmp/
+RUN chmod +x /tmp/install.sh && /tmp/install.sh && rm /tmp/install.sh
