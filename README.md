@@ -1,6 +1,6 @@
-docker nzbdrone
+docker sonarr
 
-This is a Dockerfile setup for nzbdrone - http://nzbdrone.com/
+This is a Dockerfile setup for nzbdrone - http://sonarr.tv
 
 To run:
 
